@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Clicker Game</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div id="auth">
+        <h2>Login</h2>
+        <input id="username" placeholder="Username" />
+        <input id="password" type="password" placeholder="Password" />
+        <button onclick="app.login()">Login</button>
+        <button onclick="app.register()">Register</button>
+    </div>
+
+    <div id="game" style="display: none">
+        <h1>Score: <span id="score">0</span></h1>
+        <button onclick="app.game.click()">Click</button>
+
+        <h2>Upgrades</h2>
+        <button onclick="app.game.buyUpgrade('perClick')">Per Click</button>
+
+        <button onclick="app.game.buyUpgrade('auto1')">Auto 1</button>
+
+        <button onclick="app.game.buyUpgrade('auto2')">Auto 2</button>
+
+        <br /><br />
+        <button onclick="app.logout()">Logout</button>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+
+</html>
