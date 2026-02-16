@@ -1,10 +1,8 @@
 const express = require("express");
 const sqlite3 = require("sqlite3").verbose();
 const bodyParser = require("body-parser");
-const cors = require("cors");
 
 const app = express();
-app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 
@@ -216,4 +214,5 @@ app.post("/sync", (req, res) => {
 });
 app.listen(3000, () =>
   console.log("Server running on http://localhost:3000")
+
 );
