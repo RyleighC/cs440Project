@@ -1,0 +1,17 @@
+{
+  "name": "clicker-game-microservices",
+  "version": "1.0.0",
+  "description": "Clicker game refactored into microservices",
+  "main": "gateway/server.js",
+  "scripts": {
+    "start": "node gateway/server.js",
+    "start:gateway": "node gateway/server.js",
+    "start:auth": "node services/auth-service/server.js",
+    "start:player": "node services/player-service/server.js",
+    "start:upgrade": "node services/upgrade-service/server.js"
+  },
+  "dependencies": {
+    "express": "^4.22.1",
+    "sqlite3": "^5.1.7"
+  }
+}

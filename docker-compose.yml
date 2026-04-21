@@ -1,0 +1,64 @@
+services:
+  auth-service:
+    build:
+      context: .
+      dockerfile: services/auth-service/Dockerfile
+    container_name: auth-service
+    environment:
+      - PORT=3001
+      - DB_DIR=/app/services/auth-service/data
+    volumes:
+      - auth_data:/app/services/auth-service/data
+    ports:
+      - "3001:3001"
+
+  player-service:
+    build:
+      context: .
+      dockerfile: services/player-service/Dockerfile
+    container_name: player-service
+    environment:
+      - PORT=3002
+      - DB_DIR=/app/services/player-service/data
+    volumes:
+      - player_data:/app/services/player-service/data
+    ports:
+      - "3002:3002"
+
+  upgrade-service:
+    build:
+      context: .
+      dockerfile: services/upgrade-service/Dockerfile
+    container_name: upgrade-service
+    environment:
+      - PORT=3003
+      - DB_DIR=/app/services/upgrade-service/data
+      - PLAYER_SERVICE_URL=http://player-service:3002
+    depends_on:
+      - player-service
+    volumes:
+      - upgrade_data:/app/services/upgrade-service/data
+    ports:
+      - "3003:3003"
+
+  api-gateway:
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    container_name: api-gateway
+    environment:
+      - PORT=3000
+      - AUTH_SERVICE_URL=http://auth-service:3001
+      - PLAYER_SERVICE_URL=http://player-service:3002
+      - UPGRADE_SERVICE_URL=http://upgrade-service:3003
+    depends_on:
+      - auth-service
+      - player-service
+      - upgrade-service
+    ports:
+      - "3000:3000"
+
+volumes:
+  auth_data:
+  player_data:
+  upgrade_data:
